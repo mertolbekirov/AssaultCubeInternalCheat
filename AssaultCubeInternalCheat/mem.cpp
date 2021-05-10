@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "mem.h"
-#include <Windows.h>
 
 void mem::PatchEx(BYTE* dst, BYTE* src, unsigned int size, HANDLE hProcess) {
 	DWORD oldprotect;

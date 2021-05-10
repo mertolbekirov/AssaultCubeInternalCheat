@@ -1,6 +1,5 @@
 #pragma once
-#include <Windows.h>
-
+#include "pch.h"
 namespace mem 
 {
 	void PatchEx(BYTE* dst, BYTE* src, unsigned int size, HANDLE hProcess);
