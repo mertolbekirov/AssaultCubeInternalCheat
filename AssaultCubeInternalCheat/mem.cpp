@@ -29,3 +29,26 @@ void mem::Nop(BYTE* dst, unsigned int size) {
 	Patch(dst, nopArray, size);
 	delete[] nopArray;
 }
+
+//used to derefernce multi-level pointers
+uintptr_t mem::FindDMAAddy(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets)
+{
+	uintptr_t addr = ptr;
+	for (unsigned int i = 0; i < offsets.size(); i++)
+	{
+		ReadProcessMemory(hProc, (BYTE*)addr, &addr, sizeof(addr), 0);
+		addr += offsets[i];
+	}
+	return addr;
+}
+
+uintptr_t mem::FindDMAAddy(uintptr_t ptr, std::vector<unsigned int> offsets)
+{
+	uintptr_t addr = ptr;
+	for (unsigned int i = 0; i < offsets.size(); i++)
+	{
+		addr = *(uintptr_t*)addr;
+		addr += offsets[i];
+	}
+	return addr;
+}
